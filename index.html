@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poke Web</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="search-pokemon.js" defer></script>
+</head>
+<body>
+    <header>
+        <img src="/images/Logo.svg" alt="logo" class="logo">
+        <h1>POKE WEB</h1>
+    </header>
+    <main>
+        <div class="trainers-container">
+            <section class="search-container" id="firstSearch">
+                <h2>POKEMON 1</h2>
+                <div class="input-wrapper">
+                    <input type="search" class="search-input" placeholder="Escribe un Pokemon"..>
+                    <ul class="suggestions"></ul>
+                </div>
+
+                <div class="preview-box hidden">
+                    <img class="preview-sprite" src="" alt="Vista previa">
+                    <h3 class="preview-name"></h3>
+                </div>
+            </section>
+
+            <section class="search-container" id="secSearch">
+                <h2>POKEMON 2</h2>
+                <div class="input-wrapper">
+                    <input type="search" class="search-input" placeholder="Escribe un Pokemon...">
+                    <ul class="suggestions"></ul>
+                </div>
+    
+                <div class="preview-box hidden">
+                    <img class="preview-sprite" src="" alt="Vista previa">
+                    <h3 class="preview-name"></h3>
+                </div>
+        </section> 
+        </div>
+
+        <div class="start-arena">
+            <button id="startBattleBtn" disabled>¡Iniciar Batalla!</button>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hidden {
+    display: none !important;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    padding: 10px;
+    height: 10vh;
+    background-color: #0396c8;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+header h1 {
+    font-size: 2rem;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+    gap: 200px
+}
+
+
+.trainers-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 40px;
+    gap: 20px;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 10;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.suggestions li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #f0f0f0;
+}
+
+.preview-box {
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.preview-sprite {
+    width: 100px;
+    height: 100px;
+}
+
+.start-arena {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#startBattleBtn {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    background-color: #0396c8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#startBattleBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
