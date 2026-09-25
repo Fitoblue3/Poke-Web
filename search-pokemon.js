@@ -8,12 +8,11 @@ const selectedPokemons = {
 const gameState = {
     firstSearch: {currentHp: 0, maxHp: 0, alive: true},
     secSearch: {currentHp: 0, maxHp: 0, alive: true}
-}
+};
 
-async function loadPokemonList () {
+async function loadPokemonList() {
     try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1500&offset=0")
-
+        const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1500&offset=0");
         const data = await response.json();
         allPokemonList = data.results;
     } catch (error) {
@@ -37,7 +36,7 @@ const debounce = (func, delay = 300) => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => func(...args), delay);
     };
-}
+};
 
 const renderSuggestions = (containerId, query) => {
     const container = document.getElementById(containerId);
@@ -49,6 +48,7 @@ const renderSuggestions = (containerId, query) => {
     const matches = allPokemonList
         .filter(p => p.name.toLowerCase().includes(query.toLowerCase()))
         .slice(0, 5);
+
     matches.forEach(pokemon => {
         const li = document.createElement('li');
         li.textContent = pokemon.name;
@@ -61,13 +61,14 @@ const renderSuggestions = (containerId, query) => {
 
         suggestionsUl.appendChild(li);
     });
-}
+};
 
 async function showPreview(containerId, pokemonName) {
     const container = document.getElementById(containerId);
     const previewBox = container.querySelector('.preview-box');
     const spriteImg = container.querySelector('.preview-sprite');
     const nameHeading = container.querySelector('.preview-name');
+    const typesContainer = container.querySelector('.types-container');
 
     const pokemonData = await getPokemonDetails(pokemonName);
 
@@ -76,6 +77,14 @@ async function showPreview(containerId, pokemonName) {
 
         spriteImg.src = pokemonData.sprites.front_default || '';
         nameHeading.textContent = pokemonData.name.toUpperCase();
+
+        typesContainer.innerHTML = '';
+        pokemonData.types.forEach(typeInfo => {
+            const span = document.createElement('span');
+            span.classList.add('type-badge');
+            span.textContent = typeInfo.type.name;
+            typesContainer.appendChild(span);
+        });
 
         previewBox.classList.remove('hidden');
 
@@ -88,7 +97,7 @@ const checkBattleReady = () => {
     if (selectedPokemons.firstSearch && selectedPokemons.secSearch) {
         startBtn.disabled = false;
     }
-}
+};
 
 const startBattle = () => {
     document.querySelector('#startBattleBtn').parentElement.classList.add('hidden');
@@ -100,7 +109,7 @@ const startBattle = () => {
         container.querySelector('.input-wrapper').classList.add('hidden');
         const hpStat = data.stats.find(s => s.stat.name === 'hp').base_stat;
 
-       gameState[id] = {
+        gameState[id] = {
             currentHp: hpStat,
             maxHp: hpStat,
             alive: true
@@ -124,7 +133,7 @@ const startBattle = () => {
             movesGrid.appendChild(btn);
         });
     });
-}
+};
 
 const attack = (attackerId, defenderId) => {
     if (!gameState[attackerId].alive || !gameState[defenderId].alive) return;
@@ -153,19 +162,18 @@ const attack = (attackerId, defenderId) => {
         defenderState.alive = false;
         endBattle(selectedPokemons[attackerId].name);
     }
+};
 
-    const endBattle = (winnerName) => {
+const endBattle = (winnerName) => {
     document.querySelectorAll('.moves-grid button').forEach(b => b.disabled = true);
 
     const banner = document.getElementById('winnerBanner');
     const winnerText = document.getElementById('winnerText');
     winnerText.textContent = `¡${winnerName.toUpperCase()} HA GANADO LA BATALLA! 🏆`;
     banner.classList.remove('hidden');
-    }
-}
+};
 
 function resetGame() {
-
     selectedPokemons.firstSearch = null;
     selectedPokemons.secSearch = null;
 
@@ -180,6 +188,8 @@ function resetGame() {
 
         container.querySelector('.input-wrapper').classList.remove('hidden');
         container.querySelector('.search-input').value = '';
+
+        container.querySelector('.types-container').innerHTML = '';
 
         container.querySelector('.preview-box').classList.add('hidden');
         container.querySelector('.battle-box').classList.add('hidden');
